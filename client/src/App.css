@@ -1,0 +1,20 @@
+:root{
+    --black : #525252;
+    --green : #418C51;
+    --white : #FFFFFF;
+    --grey : #909AA8;
+    --orange : #FC7E06;
+    --light-green : #E2EDE4;
+    --2xl-text : 70px;
+    --xl-text : 40px;
+    --lg-text : 36px;
+    --md-text : 18px;
+    --sm-text : 15px;
+    --xs-text : 13px;
+    --ss-text : 10px
+}
+
+.hero_gradient{
+    background: linear-gradient(90deg, var(--white) 0%, var(--white) 50%, var(--orange) 50%);
+    height: calc(100vh - 138px);
+}
