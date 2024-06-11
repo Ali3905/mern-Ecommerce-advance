@@ -21,6 +21,9 @@ const productSchema = mongoose.Schema({
         type : Number,
         default : 0
     },
+    stock : {
+        type : Number,
+    },
     reviews : {
         type : [{
             message : String,
@@ -39,13 +42,17 @@ const productSchema = mongoose.Schema({
 productSchema.pre('save', async function(next) {
     try {
         // Get all reviews associated with the product
-        const reviews = await this.model('product').findById(this._id).populate('reviews');
+        const product = await this.model('product').findById(this._id).populate('reviews');
+
+        if (product === null) {
+            return next()
+        }
 
         // Calculate the sum of ratings
-        const totalRatings = reviews.reviews.reduce((sum, review) => sum + review.rating, 0);
+        const totalRatings = product.reviews.reduce((sum, review) => sum + review.rating, 0);
 
         // Calculate the average rating
-        const averageRating = totalRatings / reviews.reviews.length;
+        const averageRating = totalRatings / product.reviews.length;
 
         // Update the product's ratings
         this.ratings = averageRating.toFixed(2);

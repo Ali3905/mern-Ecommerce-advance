@@ -1,6 +1,43 @@
 const product = require("../models/product")
 const user = require("../models/user")
 
+async function handleGetCartProducts(req, res) {
+    try {
+        const { userId } = req.body
+        if (!userId) {
+            return res.status(400).json({
+                success : false,
+                message : "Login With correct creds"
+            })
+        }
+        const foundUser = await user.findById(userId).populate("cart")
+
+            let price = 0
+            if (foundUser.cart.length > 1) {
+             
+                foundUser.cart.map((product) => {
+                    return price += product.price
+                })
+            }
+        
+
+        return res.status(200).json({
+            success : true,
+            message : "Cart Found",
+            cartProducts : foundUser.cart,
+            total : price
+        })
+
+
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 async function handleAddProductToCart(req, res) {
     try {
         const { productId, userId } = req.body
@@ -31,7 +68,6 @@ async function handleAddProductToCart(req, res) {
         }
         
         
-        console.log("start");
         const updatedUser = await user.findByIdAndUpdate(userId, { $push : { cart : foundProduct } }, { $new : true })
 
         if (!updatedUser) {
@@ -47,7 +83,10 @@ async function handleAddProductToCart(req, res) {
         })
 
     } catch (error) {
-        
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
@@ -82,12 +121,16 @@ async function handleRemoveProductToCart(req, res) {
         })
 
     } catch (error) {
-        
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
 
 
 module.exports = {
     handleAddProductToCart,
-    handleRemoveProductToCart
+    handleRemoveProductToCart,
+    handleGetCartProducts
 }

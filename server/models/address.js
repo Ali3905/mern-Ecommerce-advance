@@ -12,7 +12,7 @@ const addressSchema = mongoose.Schema({
     phoneNumber : {
         type : String
     },
-    type : {
+    typeOfAddress : {
         type : String,
         enum : ["HOME", "OFFICE", "SHOP"],
         default : "HOME"

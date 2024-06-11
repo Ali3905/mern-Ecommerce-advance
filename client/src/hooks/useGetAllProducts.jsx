@@ -14,7 +14,6 @@ export default function useGetAllProducts(initialProducts) {
                 url : "/api/product/allProducts",
             })
             setProducts(res.data.allProducts)
-            console.log(res);
         } catch (e) {
             setError(e)
         }

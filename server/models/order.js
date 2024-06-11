@@ -27,7 +27,7 @@ const orderSchema = mongoose.Schema({
         type : Number,
         default : 0
     },
-    delivery : {
+    deliveryFee : {
         type : Number,
         required : true
     },
@@ -44,7 +44,7 @@ orderSchema.pre("save", function(next) {
     })
     this.price = price
 
-    this.totalPrice = price + this.delivery
+    this.totalPrice = price + this.deliveryFee
 
     next()
 })

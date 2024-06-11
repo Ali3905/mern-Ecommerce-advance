@@ -3,7 +3,7 @@ const product = require("../models/product");
 async function handleCreateProduct(req, res) {
     try {
         const { title, description, price, images } = req.body
-        if (!title || !description || !price || !images) {
+        if (!title || !description || !price || !images || images.length < 1) {
             return res.status(400).json({
                 success: false,
                 message: "Please fill all the fields"
@@ -129,7 +129,6 @@ async function handleGetProductById(req, res) {
 }
 async function handleGetAllProducts(req, res) {
     try {
-        console.log("df");
         const allProducts = await product.find({})
         return res.status(200).json({
             success : true,

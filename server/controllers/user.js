@@ -101,8 +101,35 @@ async function handleSignin (req, res) {
     }
 }
 
+async function handleGetUserById(req, res) {
+    try {
+        const { userId } = req.body
+        const foundUser = await user.findById(userId).select("-password")
+
+        if (!foundUser) {
+            return res.status(400).json({
+                success : false,
+                message : "Could not find the user with this userId"
+            })
+        }
+
+        return res.status(200).json({
+            success : true,
+            message : "User Found",
+            foundUser,
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+} 
+
 
 module.exports = {
     handleSignUp,
-    handleSignin
+    handleSignin,
+    handleGetUserById
 }

@@ -1,10 +1,12 @@
 :root{
     --black : #525252;
+    --dark : #121025;
     --green : #418C51;
     --white : #FFFFFF;
     --grey : #909AA8;
     --orange : #FC7E06;
     --light-green : #E2EDE4;
+    --light-grey : #EAEAEF;
     --2xl-text : 70px;
     --xl-text : 40px;
     --lg-text : 36px;

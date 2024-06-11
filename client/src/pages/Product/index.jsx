@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../../components/UI/Button'
 import useGetProductByID from '../../hooks/useGetProductByID'
 import ProductDetails from '../../components/ProductDetails'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import Products from '../Landing/Products'
+import useGetAllProducts from '../../hooks/useGetAllProducts'
+import { Heading3 } from '../../components/UI/Heading'
+import ProductsCrousal from '../../components/ProductsCrousal'
 
 const index = () => {
-    const { product, loading, error } = useGetProductByID(null, "65f457d12ffc1067e77465f5")
+    const { productId } = useParams()
+    const { product, loading, error } = useGetProductByID(null, productId)
+    const { products } = useGetAllProducts()
 
     const navigate = useNavigate()
 
@@ -21,9 +27,13 @@ const index = () => {
     }
 
     return (
-        <div className='max-w-[1440px] px-[121px] py-[58px]'>
-        <ProductDetails product={product} />
-        
+        <div className='max-w-[1440px] mx-auto px-[15px] sm:px-[121px] py-[58px]'>
+            <ProductDetails product={product} />
+            <div className='py-[55px] flex flex-col gap-[20px]'>
+                <Heading3 children={"Products you may like"} />
+                {/* <Products products={products} /> */}
+                <ProductsCrousal products={products} />
+            </div>
         </div>
     )
 }
