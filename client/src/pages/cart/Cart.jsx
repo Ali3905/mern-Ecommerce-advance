@@ -10,7 +10,7 @@ const Cart = ({ products, productsTotal }) => {
   
 
     if (!products || products && products.length < 1) {
-        return <div>
+        return <div className='sm:flex-grow '>
             No Product in Cart
         </div>
     }

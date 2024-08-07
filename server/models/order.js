@@ -34,7 +34,7 @@ const orderSchema = mongoose.Schema({
     totalPrice : {
         type : Number,
     }
-}, { timeStamps : true })
+}, { timestamps : true })
 
 
 orderSchema.pre("save", function(next) {

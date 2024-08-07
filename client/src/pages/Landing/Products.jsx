@@ -7,7 +7,7 @@ const Products = ({ products }) => {
     return <div className='flex gap-[30px] px-[120px] py-[55px] flex-wrap'> No Products to show</div>
   }
   return (
-    <div className='flex gap-[5px] flex-wrap'>
+    <div className='flex gap-[5px] justify-between sm:justify-start flex-wrap'>
         {products?.map((product)=>{
             return <ProductCard product={product} />
         })}

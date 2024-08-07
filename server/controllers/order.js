@@ -31,7 +31,7 @@ async function handleCreateOrder(req, res) {
             products: productToPush, deliveryFee, address: foundAddress,
         })
 
-        const updatedUser = await user.findByIdAndUpdate(userId, { $push: { orders: createdOrder } }, { $new: true })
+        const updatedUser = await user.findByIdAndUpdate(userId, { $push: { orders: createdOrder }, cart: [] }, { $new: true })
 
 
         return res.status(201).json({
@@ -96,8 +96,37 @@ async function handleReviewOrder(req, res) {
     }
 }
 
+async function handleGetAllOrders(req, res) {
+    try {
+        const { userId } = req.body
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "Login with correct creds"
+            })
+        }
+        const foundUser = await user.findById(userId).populate({
+            path: "orders",
+            populate: {
+                path: "address",
+                model: "address"
+            }
+        })
+        return res.status(200).json({
+            success: true,
+            data: foundUser.orders
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
 
 module.exports = {
     handleCreateOrder,
-    handleReviewOrder
+    handleReviewOrder,
+    handleGetAllOrders
 }

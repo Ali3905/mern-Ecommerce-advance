@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
   const { addProductToCart, isLoading } = useAddProductToCart()
 
   return (
-    <div className='sm:max-w-[230px] max-w-[200px] border flex flex-col gap-y-[10px] rounded-[10px] overflow-hidden'>
+    <div className='sm:w-[230px] w-[49%] border flex flex-col justify-between gap-[10px] rounded-[10px] overflow-hidden '>
       <Link to={`/product/${product._id}`}><img src={axios.defaults.baseURL + product.images[0]} alt="product" height={119} width={103} className='w-full h-[119px]' /></Link>
       <div className=' px-[5px] py-[23px] flex flex-col gap-y-[10px]'>
 

@@ -41,7 +41,7 @@ const index = () => {
         }
       })
     } catch (error) {
-      alert("hello from 2")
+      alert("Something went wrong")
       setErrorInOrder(error.message)
     }
 
@@ -56,7 +56,7 @@ const index = () => {
     <div className='sm:px-[120px] px-[12px] sm:py-[40px] py-[20px] flex flex-col gap-[40px]'>
 
       <Heading3 children={"My Cart"} />
-      <div className='flex flex-col sm:flex-row gap-[35px] justify-start items-center'>
+      <div className='flex flex-col sm:flex-row gap-[35px] justify-start items-center sm:items-start'>
         {error ? "Could get the cart. Error Occured" : isLoading ? "Loading..." : <Cart products={products} productsTotal={total} />}
         <div className='sm:max-w-[450px] w-full sm:min-w-[350px] flex flex-col self-end gap-[20px]'>
           <Discount />
